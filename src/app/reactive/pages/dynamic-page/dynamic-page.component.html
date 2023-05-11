@@ -1,0 +1,78 @@
+<h2>Reactive Forms: Basics</h2>
+<hr />
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Name</label>
+    <div class="col-sm-9">
+      <input
+        class="form-control"
+        placeholder="Person name"
+        formControlName="name"
+      />
+      <span *ngIf="isValidField('name')" class="form-text text-danger">{{
+        getFieldError("name")
+      }}</span>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Add</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="Add favorite"
+          [formControl]="newFavorite"
+        />
+        <button
+          (click)="onAddFavorite()"
+          class="btn btn-outline-primary"
+          type="button"
+        >
+          Add favorite
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Favorites</label>
+    <div class="col-sm-9" formArrayName="favoriteGames">
+      <div
+        class="mb-1"
+        *ngFor="let favorite of favoriteGames.controls; let i = index"
+      >
+        <div class="input-group">
+          <input class="form-control" [formControlName]="i" />
+          <button
+            (click)="onDeleteFavorite(i)"
+            class="btn btn-outline-danger"
+            type="button"
+          >
+            Remove
+          </button>
+        </div>
+        <span
+          *ngIf="isValidFieldInArray(favoriteGames, i)"
+          class="form-text text-danger"
+          >Required field</span
+        >
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <button type="submit" class="btn btn-primary float-end">
+        <!-- [disabled]="myForm.invalid" -->
+        Save
+      </button>
+    </div>
+  </div>
+</form>
+<span>Valid</span>
+<pre>{{ "object" | json }}</pre>
+<br />
+<span>Value</span>
+<pre>{{ "object" | json }}</pre>
+<br />
+<span>Add game</span>
+<pre>{{ "object" | json }}</pre>
+<pre>{{ "object" | json }}</pre>
